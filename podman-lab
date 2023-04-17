@@ -1,0 +1,32 @@
+# install the applications from repostitory.
+sudo dnf -y install podman
+# whitelist the ports that the application will use.
+sudo firewall-cmd --add-port={80/tcp,443/tcp,8080/tcp,5432/tcp} --zone=public --permanent
+sudo firewall-cmd --reload
+# download the image from the repository.
+podman pull "docker.io/library/postgres" "docker.io/library/httpd" "docker.io/webdevops/php-apache-dev"
+# create a pod that will run the web application.
+podman pod create –-name web-1tgdev -p 8080:80
+# create container for database web application
+podman run –-pod=web-1tgdev -e POSTGRES_USER=1tgdev -e POSTGRES_PASSWORD=1tgdev –-name mydatabase -d docker.io/library/postgres
+# create entrypoint in the database 
+podman exec -it /bin/bash mydatabase
+createdb -U 1tgdev websitedb
+# login to the postgres intance
+psql -U 1tgdev -W 1tgdev
+\l
+# if the website db is already listed, you may disconnect on the psql
+exit
+# exit on the container
+exit
+# create entrypoint on the container pod
+podman run -it /bin/bash web
+# access the root application
+/app
+# create a php file for the website
+vim sample.html
+# copy paste the content from this [file](https://github.com/ITG-jnadlaon/podman-itglab/blob/main/app.html)
+# save the file
+/wq
+# open the browser and connect to the localhost
+# Thank you

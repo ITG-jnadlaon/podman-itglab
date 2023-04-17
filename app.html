@@ -1,0 +1,19 @@
+!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>ITG container sample website</title>
+  </head>
+
+  <body>
+    <?php
+      // Postgres connection
+      $conn = pg_connect("host=localhost dbname=mydatabase user=1tgdev");
+      if (!$conn) {
+        die("Error in connection: " . pg_last_error());
+      } else {
+        echo "<p>Connection succeeded.</p>";
+      }
+      pg_close($conn);
+    ?>
+  </body>
+</html>

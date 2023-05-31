@@ -30,3 +30,6 @@ vim sample.html
 /wq
 # open the browser and connect to the localhost
 # Thank you
+
+
+run -d --name joomla -p 8005:80 -v joomla-data:/var/www/html --network joomla-network -e JOOMLA_DB_HOST=joomladb -e JOOMLA_DB_USER=joomla -e JOOMLA_DB_PASSWORD=PWORD joomla
